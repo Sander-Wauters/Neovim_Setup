@@ -1,2 +1,2 @@
 # Neovim_setup
-My current Neovim setup.
+My current setup for Neovim v0.9.4.
