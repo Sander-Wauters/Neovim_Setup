@@ -8,4 +8,4 @@ vim.g.loaded_netrwPlugin = 1
 
 nvimTree.setup()
 
-vim.keymap.set("n", "<leader>pt", ":NvimTreeToggle<CR>")
+vim.keymap.set("n", "<C-n>", ":NvimTreeFindFileToggle<CR>", { desc = "Toggle the file explorer" })
