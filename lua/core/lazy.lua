@@ -17,24 +17,15 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   -- colorscheme
   "nvim-treesitter/nvim-treesitter",
-  -- "ellisonleao/gruvbox.nvim",
 
   -- dependencies
   "nvim-lua/plenary.nvim",
-  "nvim-tree/nvim-web-devicons",
-  "lewis6991/gitsigns.nvim",
 
   -- file explorer
   "nvim-tree/nvim-tree.lua",
 
   -- fuzzy finding
   "nvim-telescope/telescope.nvim",
-
-  -- auto pairing
-  -- "windwp/nvim-autopairs",
-
-  -- statusline
-  "famiu/feline.nvim",
 
   -- autocompletion
   "hrsh7th/nvim-cmp",
