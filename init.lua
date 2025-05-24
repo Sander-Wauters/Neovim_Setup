@@ -1,7 +1,6 @@
 require("core.settings")
 require("core.keymap")
 require("core.lazy")
-require("plugins.treesitter")
 require("plugins.nvimTree")
 require("plugins.telescope")
 require("plugins.nvimCmp")

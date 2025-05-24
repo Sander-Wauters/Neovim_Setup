@@ -18,9 +18,6 @@ local plugins = {
   -- dependencies
   "nvim-lua/plenary.nvim",
 
-  -- file explorer
-  "nvim-tree/nvim-tree.lua",
-
   -- fuzzy finding
   "nvim-telescope/telescope.nvim",
 
