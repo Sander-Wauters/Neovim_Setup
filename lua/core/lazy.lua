@@ -15,9 +15,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  -- colorscheme
-  "nvim-treesitter/nvim-treesitter",
-
   -- dependencies
   "nvim-lua/plenary.nvim",
 
