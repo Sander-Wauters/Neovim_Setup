@@ -58,12 +58,7 @@ return packer.startup(function(use)
     -- configuring lsp servers
     use ("neovim/nvim-lspconfig")
     use ("hrsh7th/cmp-nvim-lsp")
-    use ("jose-elias-alvarez/typescript.nvim")
     use ("onsails/lspkind.nvim")
-
-    -- linting
-    use("jose-elias-alvarez/null-ls.nvim")
-    use("jayp0521/mason-null-ls.nvim")
 
     if packerBootstrap then
         require("packer").sync()

@@ -10,11 +10,6 @@ if not masonLspconfigStatus then
     return
 end
 
-local masonNullLsStatus, masonNullLs = pcall(require, "mason-null-ls")
-if not masonNullLsStatus then
-    return
-end
-
 mason.setup()
 masonLspconfig.setup({
     ensure_installed = {
@@ -22,14 +17,10 @@ masonLspconfig.setup({
         "cssls",
         "html",
         "jdtls",
-        "tsserver",
+        "ts_ls",
         "lua_ls",
         "cmake",
         "jedi_language_server",
-    }
-})
-masonNullLs.setup({
-    ensure_installed = {
-        "eslint_d",
+        "eslint_lsp"
     }
 })

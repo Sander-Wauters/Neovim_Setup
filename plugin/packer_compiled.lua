@@ -188,11 +188,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\sande\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
-  },
-  ["typescript.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\sande\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\typescript.nvim",
-    url = "https://github.com/jose-elias-alvarez/typescript.nvim"
   }
 }
 
