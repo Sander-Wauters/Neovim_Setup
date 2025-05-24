@@ -15,12 +15,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  -- dependencies
-  "nvim-lua/plenary.nvim",
-
-  -- fuzzy finding
-  "nvim-telescope/telescope.nvim",
-
   -- autocompletion
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-buffer",
@@ -40,12 +34,6 @@ local plugins = {
   "hrsh7th/cmp-nvim-lsp",
   "onsails/lspkind.nvim",
 }
-
--- require("lazy").setup(plugins, {
---   rocks = {
---     enabled = false
---   }
--- })
 
 require("lazy").setup(
   {
