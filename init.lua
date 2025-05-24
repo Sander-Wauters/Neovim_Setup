@@ -1,7 +1,6 @@
-require("core.colorscheme")
 require("core.settings")
 require("core.keymap")
-require("pluginManager")
+require("core.lazy")
 require("plugins.treesitter")
 require("plugins.nvimTree")
 require("plugins.autopairs")
