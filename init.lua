@@ -1,5 +1,3 @@
 require("core.settings")
 require("core.keymap")
 require("core.lazy")
-require("plugins.lsp.mason")
-require("plugins.lsp.lspconfig")

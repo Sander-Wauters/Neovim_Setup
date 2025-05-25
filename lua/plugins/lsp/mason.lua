@@ -18,7 +18,6 @@ return {
         "lua_ls",
         "cmake",
         "jedi_language_server",
-        "eslint_lsp"
       },
       automatic_installation = true
     })
