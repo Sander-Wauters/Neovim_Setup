@@ -1,18 +1,15 @@
-local masonStatus, mason = pcall(require, "mason")
-if not masonStatus then
-    print("Error loading mason")
-    return
-end
+return {
+  "williamboman/mason.nvim",
+  dependencies = {
+    "williamboman/mason-lspconfig.nvim",
+  },
+  config = function ()
+    local mason = require("mason")
+    local masonLspconfig = require("mason-lspconfig")
 
-local masonLspconfigStatus, masonLspconfig = pcall(require, "mason-lspconfig")
-if not masonLspconfigStatus then
-    print("Error loading mason-lspconfig")
-    return
-end
-
-mason.setup()
-masonLspconfig.setup({
-    ensure_installed = {
+    mason.setup()
+    masonLspconfig.setup({
+      ensure_installed = {
         "clangd",
         "cssls",
         "html",
@@ -22,5 +19,9 @@ masonLspconfig.setup({
         "cmake",
         "jedi_language_server",
         "eslint_lsp"
-    }
-})
+      },
+      automatic_installation = true
+    })
+  end
+}
+

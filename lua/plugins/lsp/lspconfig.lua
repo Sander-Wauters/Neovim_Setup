@@ -1,127 +1,119 @@
-local lspconfigStatus, lspconfig = pcall(require, "lspconfig")
-if not lspconfigStatus then
-    print("Error loading lspconfig")
-    return
-end
+return {
+  "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-nvim-lsp-signature-help",
+  },
+  config = function()
+    local lspconfig = require("lspconfig")
+    local cmpNvimLsp = require("cmp_nvim_lsp")
 
-local cmpNvimLspStatus, cmpNvimLsp = pcall(require, "cmp_nvim_lsp")
-if not cmpNvimLspStatus then
-    print("Error loading cmp_nvim_lsp")
-    return
-end
-
--- keybinds for available lsp server
-local onAttach = function(client, bufnr)
     local map = vim.keymap.set
 
-    map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
-    map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Get code actions" })
+    local opts = { noremap = true, silent = true }
+    local onAttach = function(client, bufnr)
+      opts.buffer = bufnr
 
-    map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-    map("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-    map("n", "gr", require("telescope.builtin").lsp_references, { desc = "Go to references" })
-    map("n", "K", vim.lsp.buf.hover, { desc = "Show documentation" })
-end
+      opts.desc = "Show LSP references"
+      map("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
 
--- used to enable autocompletion
-local capabilities = cmpNvimLsp.default_capabilities()
+      opts.desc = "Go to declaration"
+      map("n", "gD", vim.lsp.buf.declaration, opts)
 
--- cpp
-lspconfig.clangd.setup {
-    capabilities = capabilities,
-    on_attach = onAttach,
-}
+      opts.desc = "Show LSP definitions"
+      map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
--- css
-lspconfig.cssls.setup {
-    capabilities = capabilities,
-    on_attach = onAttach,
-}
+      opts.desc = "Show LSP implementations"
+      map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
--- html
-lspconfig.html.setup {
-    capabilities = capabilities,
-    on_attach = onAttach,
-}
+      opts.desc = "Show LSP type definitions"
+      map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
--- java
-lspconfig.jdtls.setup {
-    capabilities = capabilities,
-    on_attach = onAttach,
-}
+      opts.desc = "Show available code actions"
+      map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
--- javascript && typescript
-lspconfig.ts_ls.setup {
-    capabilities = capabilities,
-    on_attach = onAttach,
-    on_init = function(client)
-      if client.workspace_folders then
-        local path = client.workspace_folders[1].name
-        if
-          path ~= vim.fn.stdpath('config')
-          and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-        then
-          return
-        end
-      end
+      opts.desc = "Smart rename"
+      map("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
-      client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most
-          -- likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-          -- Tell the language server how to find Lua modules same way as Neovim
-          -- (see `:h lua-module-load`)
-          path = {
-            'lua/?.lua',
-            'lua/?/init.lua',
-          },
-        },
-        -- Make the server aware of Neovim runtime files
-        workspace = {
-          checkThirdParty = false,
-          library = {
-            vim.env.VIMRUNTIME
-            -- Depending on the usage, you might want to add additional paths
-            -- here.
-            -- '${3rd}/luv/library'
-            -- '${3rd}/busted/library'
-          }
-          -- Or pull in all of 'runtimepath'.
-          -- NOTE: this is a lot slower and will cause issues when working on
-          -- your own configuration.
-          -- See https://github.com/neovim/nvim-lspconfig/issues/3189
-          -- library = {
-          --   vim.api.nvim_get_runtime_file('', true),
-          -- }
-        }
-      })
-    end,
-    settings = {
-      Lua = {}
+      opts.desc = "Show buffer diagnostics"
+      map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+
+      opts.desc = "Show documentation for what is under cursor"
+      map("n", "K", vim.lsp.buf.hover, opts)
+
+      opts.desc = "Restart LSP"
+      map("n", "<leader>rs", "<cmd>LspRestart<CR>", opts)
+    end
+
+    local capabilities = cmpNvimLsp.default_capabilities()
+
+    -- cpp
+    lspconfig.clangd.setup {
+      capabilities = capabilities,
+      on_attach = onAttach,
     }
-}
 
--- lua
-lspconfig.lua_ls.setup {
-    capabilities = capabilities,
-    on_attach = onAttach,
-}
+    -- css
+    lspconfig.cssls.setup {
+      capabilities = capabilities,
+      on_attach = onAttach,
+    }
 
--- cmake
-lspconfig.cmake.setup {
-    capabilities = capabilities,
-    on_attach = onAttach,
-}
+    -- html
+    lspconfig.html.setup {
+      capabilities = capabilities,
+      on_attach = onAttach,
+    }
 
--- python
-lspconfig.jedi_language_server.setup {
-    capabilities = capabilities,
-    on_attach = onAttach,
-}
+    -- java
+    lspconfig.jdtls.setup {
+      capabilities = capabilities,
+      on_attach = onAttach,
+    }
 
--- gradle
-lspconfig.gradle_ls.setup {
-    capabilities = capabilities,
-    on_attach = onAttach,
+    -- javascript && typescript
+    lspconfig.ts_ls.setup {
+      capabilities = capabilities,
+      on_attach = onAttach,
+    }
+
+    -- lua
+    lspconfig.lua_ls.setup {
+      capabilities = capabilities,
+      on_attach = onAttach,
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim" },
+          },
+          workspace = {
+            library = {
+              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+              [vim.fn.stdpath("config") .. "/lua"] = true
+            }
+          }
+        }
+      }
+    }
+
+    -- cmake
+    lspconfig.cmake.setup {
+      capabilities = capabilities,
+      on_attach = onAttach,
+    }
+
+    -- python
+    lspconfig.jedi_language_server.setup {
+      capabilities = capabilities,
+      on_attach = onAttach,
+    }
+
+    -- gradle
+    lspconfig.gradle_ls.setup {
+      capabilities = capabilities,
+      on_attach = onAttach,
+    }
+
+  end
 }

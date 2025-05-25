@@ -1,7 +1,6 @@
 return {
   "hrsh7th/nvim-cmp",
-  lazy = false,
-  priority = 100,
+  event = "InsertEnter",
   dependencies = {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
@@ -9,13 +8,20 @@ return {
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "onsails/lspkind.nvim",
     "ray-x/cmp-treesitter",
-    "L3MON4D3/LuaSnip"
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip",
+    "rafamadriz/friendly-snippets"
   },
-  event = "InsertEnter",
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
-    cmp.setup {
+
+    require("luasnip.loaders.from_vscode").lazy_load()
+
+    cmp.setup({
+      completion = {
+        completeopt = "menu,menuone,preview,noselect",
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -51,12 +57,11 @@ return {
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
+        { name = 'nvim_lsp_signature_help' },
         { name = "luasnip" },
         { name = "buffer" },
-        { name = "calc" },
         { name = "path" },
-        { name = "treesitter" },
       })
-    }
+    })
   end
 }

@@ -14,18 +14,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = {
-  -- managing lsp servers and linters
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
-
-  -- configuring lsp servers
-  "neovim/nvim-lspconfig",
-}
-
 require("lazy").setup(
   {
-    plugins,
     { import = "plugins" },
     { import = "plugins.lsp" }
   },
