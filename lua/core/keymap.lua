@@ -23,5 +23,10 @@ map("n", "<C-j>", "<C-w>j", { desc = "Move to the next below buffer" })
 map("n", "<leader>tv", "<C-w>v:terminal<CR>", { desc = "Create a terminal in a vertical buffer" })
 map("n", "<leader>th", "<C-w>s:terminal<CR>", { desc = "Create a terminal in a horizontal buffer" })
 map("n", "<leader>tt", ":tabnew<CR>:terminal<CR>", { desc = "Create a terminal in a new tab" })
-map("n", "<leader>dt", ":tabnew<CR>:terminal<CR><C-w>v:terminal<CR><C-w>h", { desc = "Create 2 terminals in a new tab" })
+map(
+	"n",
+	"<leader>td",
+	":tabnew<CR>:terminal<CR><C-w>v:terminal<CR><C-w>h",
+	{ desc = "Create 2 terminals in a new tab" }
+)
 map("t", "<ESC>", "<C-\\><C-n>", { desc = "Exit to normal mode in terminal" })
