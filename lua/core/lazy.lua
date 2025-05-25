@@ -15,24 +15,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  -- autocompletion
-  "hrsh7th/nvim-cmp",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-
-  -- snippets
-  "L3MON4D3/LuaSnip",
-  "saadparwaiz1/cmp_luasnip",
-  "rafamadriz/friendly-snippets",
-
   -- managing lsp servers and linters
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
 
   -- configuring lsp servers
   "neovim/nvim-lspconfig",
-  "hrsh7th/cmp-nvim-lsp",
-  "onsails/lspkind.nvim",
 }
 
 require("lazy").setup(
