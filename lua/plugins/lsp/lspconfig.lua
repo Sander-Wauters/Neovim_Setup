@@ -6,6 +6,14 @@ return {
 		"hrsh7th/cmp-nvim-lsp-signature-help",
 	},
 	config = function()
+		vim.diagnostic.config({
+			virtual_text = true,
+			signs = true,
+			underline = true,
+			update_in_insert = false,
+			severity_sort = true,
+		})
+
 		local lspconfig = require("lspconfig")
 		local cmpNvimLsp = require("cmp_nvim_lsp")
 
